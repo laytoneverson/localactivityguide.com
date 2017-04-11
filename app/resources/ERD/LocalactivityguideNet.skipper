@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<skipper version="3.2.6.1309" mvc="Symfony2" orm="Doctrine2" name="Localactivityguide.net" uuid="3afde50a-8ccb-48b9-82ea-b83c2c48b73d">
+  <module name="\AppBundle" local-name="AppBundle" namespace="\AppBundle\Entity" local-namespace="AppBundle\Entity" export-format="Doctrine2Php" export-path="../../../src/AppBundle/Entity" uuid="296d8782-ae52-450d-af40-d8ed769e2d73">
+    <region namespace="\AppBundle\Entity" caption="Contact Information" uuid="7944f1a7-15d2-4b9c-8a6d-ca7f3a11a067">
+      <entity name="\AppBundle\Entity\PostalAddress" local-name="PostalAddress" namespace="\AppBundle\Entity" description="&#10;    PostalAddress:&#10;        # Disable the generation of the class hierarchy for this type&#10;        parent: false&#10;        properties:&#10;            # Force the type of the addressCountry property to text&#10;            addressCountry: { range: Country }&#10;            addressLocality: ~&#10;            addressRegion: ~&#10;            postOfficeBoxNumber: ~&#10;            postalCode: ~&#10;" uuid="243e9193-ebd1-4a1c-9391-6ef577c2fbc3">
+        <field name="id" type="integer" unique="true" primary="true" auto-increment="true" uuid="c6256bc2-4845-40fc-a4d8-9f247a56417e"/>
+        <field name="streetAddress" type="string" uuid="d9293c64-d968-4e2d-9ffc-31124c5efb46"/>
+        <field name="poBoxNumber" type="string" uuid="fa034f38-6ada-4f33-bd24-922ab1a36056"/>
+        <field name="city" type="string" uuid="8ba1b450-7f8c-44df-9334-559751d7803b"/>
+        <field name="state" type="string" uuid="37878118-aff2-472c-b874-0f183d4653f8"/>
+        <field name="zipCode" type="string" uuid="411b9996-4c04-4b65-b057-debf09aa020c"/>
+        <field name="country" type="string" uuid="11adf6f2-0079-42c0-b07d-b853cefc96b6"/>
+        <field name="postal_code_id" type="integer" uuid="4758a78a-d6e4-4b6d-96ea-2575392aa0b9"/>
+      </entity>
+      <entity name="\AppBundle\Entity\ContactCard" local-name="ContactCard" namespace="\AppBundle\Entity" local-namespace="" description="&#10;" uuid="9cc48192-f244-4552-a648-fc3e3c906ec8">
+        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="c9e4d5fe-6b1b-44f9-9a5e-d0f2fb5e7b31"/>
+        <field name="cardLabel" type="string" uuid="74e0769d-22e9-4cce-8cf8-e4e4b271f122"/>
+        <field name="emailAddress" type="string" required="true" uuid="b4679be1-6d94-4c5e-8c06-a5abc8ee4d75"/>
+        <field name="description" type="string" uuid="1a7d8c11-f366-4024-b517-9e6403e6c043"/>
+        <field name="contactNotes" type="string" uuid="8f415e40-b87a-482b-b1a5-c9fbd7836fec"/>
+      </entity>
+      <entity name="\AppBundle\Entity\TelephoneNumber" local-name="TelephoneNumber" namespace="\AppBundle\Entity" uuid="7ef322bf-3ff1-4857-9e87-42f083be63ad">
+        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="dfed86af-7830-43da-aea7-a02a80412c09"/>
+        <field name="phoneNumber" type="string" size="15" uuid="6d56b0eb-5acf-40c6-8b45-3fe1f638fbf5"/>
+        <field name="phoneNumberType" type="string" uuid="ea8ae240-2ec8-402b-8000-5f3e15a2aa7d"/>
+        <field name="country_id" type="integer" uuid="3a554cc4-0f0c-40de-82b5-9d15b2a6069b"/>
+        <field name="countryCode" type="string" size="4" uuid="26e2def0-367d-4425-af45-71db58d1d441"/>
+        <field name="isTollFree" type="boolean" uuid="7cc90752-6a7e-4b3c-98d5-353853c91856"/>
+        <field name="contact_card_id" type="integer" uuid="bbe90795-deb3-48b2-a74b-a33dc78f53fb"/>
+      </entity>
+      <entity name="\AppBundle\Entity\PostalAddress2ContactCard" local-name="PostalAddress2ContactCard" namespace="\AppBundle\Entity" uuid="a4d157d7-87b8-4c29-afde-2363431b51ea">
+        <field name="postal_address_id" type="integer" required="true" primary="true" uuid="12bb22a1-9f9e-430d-8ac1-ba2367c76a25"/>
+        <field name="contact_card_id" type="integer" required="true" primary="true" uuid="d9bb2136-0e54-4c36-b6bd-422fa5af55e0"/>
+      </entity>
+      <entity name="\AppBundle\Entity\OperationHours2ContactCard" local-name="OperationHours2ContactCard" namespace="\AppBundle\Entity" uuid="fbcd13f0-6611-4639-a804-0d3d9f60bbbb">
+        <field name="operation_hours_id" type="integer" required="true" primary="true" uuid="6ea8df02-c141-4bd6-a865-2ff19054eaf0"/>
+        <field name="contact_card_id" type="integer" required="true" primary="true" uuid="5d76f5b5-3eaf-4734-aaa9-297e771d29f1"/>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\PostalAddress" to="\AppBundle\Entity\PostalCode" caption="PostalCode PostalAddress" owner-alias="postalAddress" inverse-alias="postalCode" many-owner="true" many-inverse="false" uuid="267f2192-2e28-4c23-9475-91664197d04f">
+      <association-field from="postal_code_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\TelephoneNumber" to="\AppBundle\Entity\Country" caption="Country TelephoneNumber" owner-alias="telephoneNumber" inverse-alias="country" many-owner="true" many-inverse="false" uuid="910b5bc5-c6cc-4be8-812a-b4179acffb63">
+      <association-field from="country_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\TelephoneNumber" to="\AppBundle\Entity\ContactCard" caption="ContactCard TelephoneNumber" owner-alias="telephoneNumbers" inverse-alias="contactCard" many-owner="true" many-inverse="false" uuid="43c54380-406f-4ec2-a83c-992caefbf526">
+      <association-field from="contact_card_id" to="id"/>
+    </association>
+    <many-to-many mn-entity="\AppBundle\Entity\PostalAddress2ContactCard" caption="PostalAddress to ContactCard" uuid="9200ba31-3720-4003-8b6c-39ca67069001">
+      <many-to-many-entity name="\AppBundle\Entity\ContactCard" owning-side="true" alias="contactCard" uuid="482ea216-67c3-44ce-b593-5a4399b2e513">
+        <many-to-many-field from="contact_card_id" to="id"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\AppBundle\Entity\PostalAddress" owning-side="false" alias="postalAddress" uuid="d9c4b79d-6b93-475d-9a51-089c79c52e95">
+        <many-to-many-field from="postal_address_id" to="id"/>
+      </many-to-many-entity>
+    </many-to-many>
+    <many-to-many mn-entity="\AppBundle\Entity\OperationHours2ContactCard" caption="OperationHours to ContactCard" uuid="01905372-37ab-431f-ad0f-972484a41787">
+      <many-to-many-entity name="\AppBundle\Entity\ContactCard" owning-side="true" alias="contactCard" uuid="4e309671-27be-4b4e-84c8-7a95a93017d0">
+        <many-to-many-field from="contact_card_id" to="id"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\AppBundle\Entity\OperationHours" owning-side="false" alias="operationHours" uuid="4311298a-5d03-4c70-8ca1-6defa8225c3e">
+        <many-to-many-field from="operation_hours_id" to="id"/>
+      </many-to-many-entity>
+    </many-to-many>
+    <region namespace="\AppBundle\Entity" caption="User Login" description="&#10;&#10;    ImageObject:&#10;        parent: false&#10;        properties:&#10;            caption: ~&#10;            exif: { range: text }&#10;            thumbnail: ~&#10;&#10;&#10;    OpeningHoursSpecification:&#10;        parent: false&#10;        properties:&#10;            closes: ~&#10;            dayOfWeek: ~&#10;            opens: ~&#10;            validFrom: ~&#10;            validThrough: ~&#10;&#10;&#10;&#10;&#10;  " uuid="f1d2d600-3455-4147-8311-e055d78fbc92"/>
+    <region namespace="\AppBundle\Entity" caption="Geography" uuid="9646be2b-c395-45a8-8198-1537be8ca385">
+      <entity name="\AppBundle\Entity\Country" local-name="Country" namespace="\AppBundle\Entity" uuid="5fcfc80a-dd91-4bf8-9f2b-29def096d5f4">
+        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="951355fe-ab57-45b9-9665-728a67904de4"/>
+        <field name="code" type="string" size="3" unique="true" uuid="8c8fbabf-1c6d-4be7-a27e-9df2c336589c"/>
+        <field name="telephoneCallingCode" type="string" size="4" unique="true" uuid="ba218515-ece1-4964-8039-fac2164c5c6e"/>
+        <field name="countryName" type="string" uuid="4dfcffd5-238a-490d-8ac8-9d45a99d3aaf"/>
+        <field name="mapUrl" type="string" uuid="53f517d3-4e7c-408c-923c-0db6789ab7c0"/>
+        <field name="geoNamesId" type="string" uuid="e56847fc-f35f-450a-8293-f3a330443451"/>
+      </entity>
+      <entity name="\AppBundle\Entity\State" local-name="State" namespace="\AppBundle\Entity" uuid="ff669734-9272-47d4-bc34-2d3bec9007c9">
+        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="f7a80a49-7363-48ff-95e3-35db99b32953"/>
+        <field name="country_id" type="integer" required="true" uuid="df686957-5a5a-4a01-bc5e-ad28a6f35063"/>
+        <field name="code" type="string" size="3" required="true" uuid="4569e598-1a3b-47ee-b179-a39fcf519400"/>
+        <field name="stateName" type="string" uuid="f6eeb90f-51ad-4920-bb0b-cc903d4da71a"/>
+        <field name="description" type="text" uuid="1e17c4b0-e8be-4182-a108-736fd784068b"/>
+        <field name="websiteUrl" type="string" uuid="8f339065-2009-456e-a2d2-a62987b08016"/>
+        <field name="mapUrl" type="string" uuid="eb4eedfe-f290-48c6-894d-b1ecdb5e9ad5"/>
+        <field name="geoNamesId" type="string" uuid="41cf386d-75bf-4c16-9acf-20d23650a2c7"/>
+      </entity>
+      <entity name="\AppBundle\Entity\ActivityRegion" local-name="ActivityRegion" namespace="\AppBundle\Entity" uuid="85ac9058-c7f6-41de-aaa4-0a950fbf07b8">
+        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="78cd898a-4e83-496b-b3c6-0f0b995bcb32"/>
+        <field name="state_id" type="integer" required="true" uuid="fcb208dd-1e13-4fbe-bee0-ce6004f9855e"/>
+      </entity>
+      <entity name="\AppBundle\Entity\City" local-name="City" namespace="\AppBundle\Entity" uuid="6562e86f-9d0e-4489-a414-56c872ecd190">
+        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="2dfb1959-6a5f-4a21-8641-3aebd5ca41fc"/>
+        <field name="activity_region_id" type="integer" required="true" uuid="5f920a84-ba71-4efd-bd0c-a670c0465796"/>
+        <field name="cityName" type="string" uuid="1222c83c-4041-4941-82d1-ed0a2da7c9f9"/>
+        <field name="websiteUrl" type="string" uuid="af90a2d1-b957-4f41-98e6-3e1df3536d2b"/>
+        <field name="mapUrl" type="string" uuid="d893fb8c-7e3f-406a-a00c-aa3ccf42156f"/>
+        <field name="geoNamesId" type="string" uuid="631a2677-8527-42c6-93c9-4376d912aeda"/>
+        <field name="county_id" type="integer" required="true" uuid="01d5cd78-2bcb-4c74-8e6b-17ddb854f3ec"/>
+      </entity>
+      <entity name="\AppBundle\Entity\County" local-name="County" namespace="\AppBundle\Entity" uuid="c6831229-a937-49da-a961-9ddce68c1c42">
+        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="89c62803-e833-4c62-99bb-a02251dbeea4"/>
+        <field name="countyName" type="string" uuid="8fac1fee-ed54-4c88-9343-ba4d68ed51f1"/>
+        <field name="description" type="string" uuid="22c288e2-28a0-4b8d-8e4e-51e28949c29b"/>
+        <field name="mapUrl" type="string" uuid="02a8649d-b907-49c7-a069-c66f6779ec8f"/>
+        <field name="geoNamesId" type="string" uuid="d53e15a7-344b-407b-90f8-41040f59aa6f"/>
+        <field name="state_id" type="integer" required="true" uuid="3b1f52e7-47ff-4caf-95e3-98b10b0199e2"/>
+      </entity>
+      <entity name="\AppBundle\Entity\County2ActivityRegion" local-name="County2ActivityRegion" namespace="\AppBundle\Entity" uuid="111e4155-4e6b-49d2-8e7e-917c2358b711">
+        <field name="county_id" type="integer" required="true" primary="true" uuid="f1d13631-f768-4de7-ac12-b88fc4ccc2f8"/>
+        <field name="activity_region_id" type="integer" required="true" primary="true" uuid="2ee77565-412f-42d1-85b4-19392cb66b36"/>
+      </entity>
+      <entity name="\AppBundle\Entity\PostalCode" local-name="PostalCode" namespace="\AppBundle\Entity" uuid="a9a007b6-cf4f-4c31-843d-a59df023dc2d">
+        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="61dd2be4-e3f1-4488-ae90-feaa1473a396"/>
+        <field name="countryCode" type="string" uuid="e99310b1-21d3-4c05-816f-a7e414552dfb"/>
+        <field name="postalCode" type="string" uuid="e7205a5d-5241-46ed-baf9-cd757c84f5a6"/>
+        <field name="placeName" type="string" uuid="1ae3e284-6385-4ae8-a95e-ad9ad8a22074"/>
+        <field name="adminStateName" type="string" uuid="e76b02e9-a05e-4003-b760-60571a4b32c0"/>
+        <field name="adminStateCode" type="string" uuid="42022310-5e84-4633-8cf0-780f4fd8e230"/>
+        <field name="adminCountyCode" type="string" uuid="99456d96-2295-4ab0-887d-c8341e602016"/>
+        <field name="adminCountName" type="string" uuid="917f4dda-bb31-498f-a9f1-8d9b46797120"/>
+        <field name="communitySubdivisionCode" type="string" uuid="1dfe3bfc-6bab-4aec-bede-966b6a00342a"/>
+        <field name="commuinitySubdivisionName" type="string" uuid="d79492a5-2727-40bc-996b-d619c21fc641"/>
+        <field name="country_id" type="integer" uuid="f7695bf3-fce0-4db7-b4f5-8951d74f1dbc"/>
+        <field name="state_id" type="integer" uuid="06e3fe5f-3bf7-47b1-9b5b-69ebf590aa6f"/>
+        <field name="county_id" type="integer" uuid="0a3c3a62-a564-495a-a4e1-c2afaf49a273"/>
+        <field name="city_id" type="integer" uuid="310e15b6-f64f-459f-95f3-09d716feb5fb"/>
+        <field name="activity_region_id" type="integer" uuid="bee754da-0ec2-4c98-9cb4-00c16dcba22a"/>
+      </entity>
+    </region>
+    <association from="\AppBundle\Entity\State" to="\AppBundle\Entity\Country" caption="Country State" owner-alias="states" inverse-alias="country" many-owner="true" many-inverse="false" parent-required="true" uuid="5f00863f-6b20-472e-98b9-d109b8c402e4">
+      <association-field from="country_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\ActivityRegion" to="\AppBundle\Entity\State" caption="State ActivityRegion" owner-alias="activityRegion" inverse-alias="state" many-owner="true" many-inverse="false" parent-required="true" uuid="4b458343-8c9d-45a8-8fd1-9ba231152668">
+      <association-field from="state_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\City" to="\AppBundle\Entity\ActivityRegion" caption="ActivityRegion City" owner-alias="regionCities" inverse-alias="activityRegion" many-owner="true" many-inverse="false" parent-required="true" uuid="424c8ae3-d61e-446c-83a0-3f78e2d0b691">
+      <association-field from="activity_region_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\City" to="\AppBundle\Entity\County" caption="County City" owner-alias="cities" inverse-alias="county" many-owner="true" many-inverse="false" parent-required="true" uuid="3c2f9f46-0424-4b89-90dc-afa5f06b15ec">
+      <association-field from="county_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\County" to="\AppBundle\Entity\State" caption="State County" owner-alias="counties" inverse-alias="state" many-owner="true" many-inverse="false" parent-required="true" uuid="57ad6c20-4601-4ce3-9f51-249a37c92bf4">
+      <association-field from="state_id" to="id"/>
+    </association>
+    <many-to-many mn-entity="\AppBundle\Entity\County2ActivityRegion" caption="County to ActivityRegion" uuid="00fbf593-277f-46c1-b06e-63f910397069">
+      <many-to-many-entity name="\AppBundle\Entity\ActivityRegion" owning-side="true" alias="activityRegions" uuid="2ccf13f0-3ed7-46e2-bafc-17405caee037">
+        <many-to-many-field from="activity_region_id" to="id"/>
+      </many-to-many-entity>
+      <many-to-many-entity name="\AppBundle\Entity\County" owning-side="false" alias="counties" uuid="a3104d65-306a-4e8a-9e49-61c5f8562d8b">
+        <many-to-many-field from="county_id" to="id"/>
+      </many-to-many-entity>
+    </many-to-many>
+    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\Country" caption="Country PostalCode" owner-alias="postalCodes" inverse-alias="country" many-owner="true" many-inverse="false" uuid="2b9a37eb-b787-480c-84da-c34bf708286b">
+      <association-field from="country_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\State" caption="State PostalCode" owner-alias="postalCodes" inverse-alias="state" many-owner="true" many-inverse="false" uuid="28c4d06e-3289-4de7-9674-66e14a93425d">
+      <association-field from="state_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\County" caption="County PostalCode" owner-alias="postalCodes" inverse-alias="county" many-owner="true" many-inverse="false" uuid="18425ebf-5636-44be-81a9-8dff56285c86">
+      <association-field from="county_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\City" caption="City PostalCode" owner-alias="postalCodes" inverse-alias="city" many-owner="true" many-inverse="false" uuid="e7fd951e-67fb-4889-b0e7-c0e4c7960d07">
+      <association-field from="city_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\ActivityRegion" caption="ActivityRegion PostalCode" owner-alias="postalCodes" inverse-alias="activityRegion" many-owner="true" many-inverse="false" uuid="fafc5d32-d051-4986-9d7a-cce5087b9169">
+      <association-field from="activity_region_id" to="id"/>
+    </association>
+    <region namespace="\AppBundle\Entity" caption="Abstract Classes" uuid="2bb5530c-263c-4174-8745-2d0a228ae70f">
+      <entity name="\AppBundle\Entity\Person" local-name="Person" namespace="\AppBundle\Entity" description=" &#10;            address: { range: PostalAddress }&#10;            email: ~&#10;" uuid="4459b0b1-c8d2-4a5a-8859-0bb243627eda">
+        <field name="fullName" type="string" size="255" uuid="0862e23a-61c0-4eda-8a51-46e92aaf5705"/>
+        <field name="familyName" type="string" size="255" uuid="21586160-b698-4573-ad1d-9a0199fea0b2"/>
+        <field name="givenName" type="string" size="255" uuid="998cd1e0-57bc-42d2-b226-04167a3e278e"/>
+        <field name="gender" type="string" size="10" uuid="258dcfe0-0ecc-4313-b815-271fb5c087e7"/>
+        <field name="birthDate" type="date" uuid="b24a11a8-e01f-4fb2-aa57-ac954b7723c5"/>
+        <field name="emailAddress" type="string" uuid="df572adb-6b29-4f04-b482-62d76d1c8808"/>
+      </entity>
+    </region>
+    <region namespace="\AppBundle\Entity" caption="HoursOfOpperation" uuid="e7577bfa-ca0a-4cd1-80b1-8a8072041f07">
+      <entity name="\AppBundle\Entity\OperationHours" local-name="OperationHours" namespace="\AppBundle\Entity" description="&#10;&#10;&#10;" uuid="77cc3fed-52fc-479e-a98f-2e51b2ebf697">
+        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="5a811e2e-a939-462a-847e-4621d8456770"/>
+        <field name="validStartDate" type="datetime" required="true" uuid="a4df6b8d-5dce-48cd-84dc-1753977e65a0"/>
+        <field name="validEndDate" type="datetime" required="true" uuid="4551cfac-06b3-4a1a-8f53-d0b4ca103188"/>
+        <field name="openTime" type="time" required="true" uuid="174f5483-b54c-464f-a655-fa3f786885a4"/>
+        <field name="closeTime" type="time" required="true" uuid="607501bf-8e68-42ba-9d43-458aaea70d63"/>
+        <field name="dayOfWeek" type="integer" default="Mon =1 , Sun = 7" required="true" uuid="68a65fb2-728f-4dbb-ac34-d2945dac8c10"/>
+      </entity>
+    </region>
+    <orm-attributes>
+      <attribute name="filename-format">entity-name-only</attribute>
+      <attribute name="file-suffix">without-suffix</attribute>
+    </orm-attributes>
+  </module>
+  <visual-data>
+    <association uuid="18425ebf-5636-44be-81a9-8dff56285c86" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="267f2192-2e28-4c23-9475-91664197d04f" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="28c4d06e-3289-4de7-9674-66e14a93425d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="2b9a37eb-b787-480c-84da-c34bf708286b" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="3c2f9f46-0424-4b89-90dc-afa5f06b15ec" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="424c8ae3-d61e-446c-83a0-3f78e2d0b691" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="43c54380-406f-4ec2-a83c-992caefbf526" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="4b458343-8c9d-45a8-8fd1-9ba231152668" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="57ad6c20-4601-4ce3-9f51-249a37c92bf4" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="5f00863f-6b20-472e-98b9-d109b8c402e4" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="910b5bc5-c6cc-4be8-812a-b4179acffb63" caption1-position-x="0" caption1-position-y="0" caption2-position-x="57" caption2-position-y="-12" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="e7fd951e-67fb-4889-b0e7-c0e4c7960d07" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="fafc5d32-d051-4986-9d7a-cce5087b9169" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <entity uuid="111e4155-4e6b-49d2-8e7e-917c2358b711" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="509" position-y="788" size-x="0" size-x2="140" size-y="0" size-y2="60"/>
+    <entity uuid="243e9193-ebd1-4a1c-9391-6ef577c2fbc3" bg-color="#FFFFFF" hdr-color="#D2D2D2"/>
+    <entity uuid="4459b0b1-c8d2-4a5a-8859-0bb243627eda" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-46" position-y="34" size-x="0" size-x2="130" size-y="0" size-y2="101"/>
+    <entity uuid="5fcfc80a-dd91-4bf8-9f2b-29def096d5f4" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-69" position-y="69" size-x="0" size-x2="158" size-y="0" size-y2="101"/>
+    <entity uuid="6562e86f-9d0e-4489-a414-56c872ecd190" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-31" position-y="759" size-x="0" size-x2="136" size-y="0" size-y2="115"/>
+    <entity uuid="77cc3fed-52fc-479e-a98f-2e51b2ebf697" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="191" position-y="21" size-x="0" size-x2="130" size-y="0" size-y2="101"/>
+    <entity uuid="7ef322bf-3ff1-4857-9e87-42f083be63ad" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="480" position-y="21" size-x="0" size-x2="136" size-y="0" size-y2="115"/>
+    <entity uuid="85ac9058-c7f6-41de-aaa4-0a950fbf07b8" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="487" position-y="54" size-x="0" size-x2="95" size-y="0" size-y2="45"/>
+    <entity uuid="9cc48192-f244-4552-a648-fc3e3c906ec8" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="315" position-y="244" size-x="0" size-x2="113" size-y="0" size-y2="73"/>
+    <entity uuid="a4d157d7-87b8-4c29-afde-2363431b51ea" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="39" position-y="54" size-x="0" size-x2="160" size-y="0" size-y2="60"/>
+    <entity uuid="a9a007b6-cf4f-4c31-843d-a59df023dc2d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-61" position-y="400" size-x="0" size-x2="179" size-y="0" size-y2="227"/>
+    <entity uuid="c6831229-a937-49da-a961-9ddce68c1c42" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="238" position-y="768" size-x="0" size-x2="111" size-y="0" size-y2="101"/>
+    <entity uuid="fbcd13f0-6611-4639-a804-0d3d9f60bbbb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="13" position-y="219" size-x="0" size-x2="165" size-y="0" size-y2="60"/>
+    <entity uuid="ff669734-9272-47d4-bc34-2d3bec9007c9" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="256" position-y="202" size-x="0" size-x2="110" size-y="0" size-y2="129"/>
+    <many-to-many-association uuid="00fbf593-277f-46c1-b06e-63f910397069" color="#969696"/>
+    <many-to-many-association uuid="01905372-37ab-431f-ad0f-972484a41787" color="#969696"/>
+    <many-to-many-association uuid="9200ba31-3720-4003-8b6c-39ca67069001" color="#969696"/>
+    <many-to-many-association-entity uuid="2ccf13f0-3ed7-46e2-bafc-17405caee037" split="1"/>
+    <many-to-many-association-entity uuid="a3104d65-306a-4e8a-9e49-61c5f8562d8b" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
+    <module uuid="296d8782-ae52-450d-af40-d8ed769e2d73" bg-color="#FFFFFF" position-x="11" position-y="24" size-x="45" size-x2="1514" size-y="34" size-y2="1504"/>
+    <project uuid="3afde50a-8ccb-48b9-82ea-b83c2c48b73d" size-x="84" size-x2="1572" size-y="60" size-y2="1578"/>
+    <region uuid="2bb5530c-263c-4174-8745-2d0a228ae70f" bg-color="#EAE4F1" position-x="77" position-y="19" size-x="66" size-x2="354" size-y="10" size-y2="178"/>
+    <region uuid="7944f1a7-15d2-4b9c-8a6d-ca7f3a11a067" bg-color="#E7F5FD" position-x="548" position-y="4" size-x="109" size-x2="800" size-y="-1" size-y2="362"/>
+    <region uuid="9646be2b-c395-45a8-8198-1537be8ca385" bg-color="#FEFCE8" position-x="87" position-y="557" size-x="82" size-x2="659" size-y="7" size-y2="897"/>
+    <region uuid="e7577bfa-ca0a-4cd1-80b1-8a8072041f07" bg-color="#FFE9D6" position-x="14" position-y="219" size-x="0" size-x2="411" size-y="0" size-y2="310"/>
+    <region uuid="f1d2d600-3455-4147-8311-e055d78fbc92" bg-color="#E7F3E7" position-x="811" position-y="752" size-x="0" size-x2="176" size-y="0" size-y2="50"/>
+  </visual-data>
+</skipper>
