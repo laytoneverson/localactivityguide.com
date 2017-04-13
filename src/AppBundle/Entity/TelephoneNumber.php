@@ -1,8 +1,13 @@
 <?php
+
 namespace AppBundle\Entity;
+
 use Doctrine\ORM\Mapping AS ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * @ApiResource()
+ *
  * @ORM\Entity
  */
 class TelephoneNumber
