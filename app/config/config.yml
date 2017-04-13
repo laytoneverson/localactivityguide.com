@@ -85,3 +85,59 @@ nelmio_cors:
         max_age:        3600
     paths:
         '^/': ~
+
+api_platform:
+
+    title: 'Activity Guide API'
+    description: 'A resource for front end applications consuming localactivityguide.com data'
+    version: '0.0.1'
+
+    default_operation_path_resolver: 'api_platform.operation_path_resolver.underscore'
+
+    name_converter: ~
+
+    eager_loading:
+        enabled: true
+        max_joins: 30
+        force_eager: true
+
+    enable_fos_user: false
+    enable_nelmio_api_doc: false
+
+    enable_swagger: true
+    enable_swagger_ui: true
+
+    collection:
+        order: ~
+        order_parameter_name: 'order'
+        pagination:
+            enabled: true
+            client_enabled: true
+            client_items_per_page: true
+            items_per_page: 30
+            maximum_items_per_page: 100
+
+            page_parameter_name: 'page'
+            enabled_parameter_name: 'pagination'
+            items_per_page_parameter_name: 'itemsPerPage'
+
+    # The list of exceptions mapped to their HTTP status code.
+    exception_to_status:
+        Symfony\Component\Serializer\Exception\ExceptionInterface: 400
+        ApiPlatform\Core\Exception\InvalidArgumentException: 'HTTP_BAD_REQUEST'
+
+    formats:
+        jsonld:
+            mime_types: ['application/ld+json']
+
+        json:
+            mime_types: ['application/json']
+
+        html:
+            mime_types: ['text/html']
+
+    error_formats:
+        jsonproblem:
+            mime_types: ['application/problem+json']
+        jsonld:
+            mime_types: ['application/ld+json']
