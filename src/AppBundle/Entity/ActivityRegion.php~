@@ -1,0 +1,38 @@
+<?php
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping AS ORM;
+
+/**
+ * @ORM\Entity
+ */
+class ActivityRegion
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $regionLabel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\City", mappedBy="activityRegion")
+     */
+    private $regionCities;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PostalCode", mappedBy="activityRegion")
+     */
+    private $postalCodes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\State", inversedBy="activityRegions")
+     * @ORM\JoinColumn(name="state_id", referencedColumnName="id")
+     */
+    private $state;
+
+}

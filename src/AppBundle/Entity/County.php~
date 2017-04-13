@@ -1,0 +1,31 @@
+<?php
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping AS ORM;
+
+/**
+ * @ORM\Entity
+ */
+class County extends Place
+{
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $countyName;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\City", mappedBy="county")
+     */
+    private $cities;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\State", inversedBy="counties")
+     * @ORM\JoinColumn(name="state_id", referencedColumnName="id")
+     */
+    private $state;
+
+}

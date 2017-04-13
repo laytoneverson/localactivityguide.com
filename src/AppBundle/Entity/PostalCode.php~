@@ -1,0 +1,101 @@
+<?php
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping AS ORM;
+
+/**
+ * @ORM\Entity
+ */
+class PostalCode
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $countryCode;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $postalCode;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $placeName;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $adminStateName;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $adminStateCode;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $adminCountyCode;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $adminCountName;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $communitySubdivisionCode;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $commuinitySubdivisionName;
+
+    /**
+     * 
+     */
+    private $communitySubdivisionName;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $county_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PostalAddress", mappedBy="postalCode")
+     */
+    private $postalAddress;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ActivityRegion", inversedBy="postalCodes")
+     * @ORM\JoinColumn(name="activity_region_id", referencedColumnName="id")
+     */
+    private $activityRegion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Country", inversedBy="postalCodes")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     */
+    private $country;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City", inversedBy="postalCodes")
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
+     */
+    private $city;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\State", inversedBy="postalCodes")
+     * @ORM\JoinColumn(name="state_id", referencedColumnName="id")
+     */
+    private $state;
+
+}

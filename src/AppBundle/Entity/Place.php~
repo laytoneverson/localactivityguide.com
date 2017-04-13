@@ -1,0 +1,40 @@
+<?php
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping AS ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="placeDiscriminator", length=255, type="string")
+ * @ORM\DiscriminatorMap({
+ *     "place"="AppBundle\Entity\Place",
+ *     "country"="AppBundle\Entity\Country",
+ *     "state"="AppBundle\Entity\State",
+ *     "city"="AppBundle\Entity\City",
+ *     "county"="AppBundle\Entity\County"
+ * })
+ */
+class Place
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mapUrl;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $geoNamesId;
+}

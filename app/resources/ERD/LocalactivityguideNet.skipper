@@ -40,9 +40,7 @@
     <association from="\AppBundle\Entity\PostalAddress" to="\AppBundle\Entity\PostalCode" caption="PostalCode PostalAddress" owner-alias="postalAddress" inverse-alias="postalCode" many-owner="true" many-inverse="false" uuid="267f2192-2e28-4c23-9475-91664197d04f">
       <association-field from="postal_code_id" to="id"/>
     </association>
-    <association from="\AppBundle\Entity\TelephoneNumber" to="\AppBundle\Entity\Country" caption="Country TelephoneNumber" owner-alias="telephoneNumber" inverse-alias="country" many-owner="true" many-inverse="false" uuid="910b5bc5-c6cc-4be8-812a-b4179acffb63">
-      <association-field from="country_id" to="id"/>
-    </association>
+    <association from="\AppBundle\Entity\TelephoneNumber" to="\AppBundle\Entity\Country" caption="Country TelephoneNumber" owner-alias="telephoneNumber" inverse-alias="country" many-owner="true" many-inverse="false" uuid="910b5bc5-c6cc-4be8-812a-b4179acffb63"/>
     <association from="\AppBundle\Entity\TelephoneNumber" to="\AppBundle\Entity\ContactCard" caption="ContactCard TelephoneNumber" owner-alias="telephoneNumbers" inverse-alias="contactCard" many-owner="true" many-inverse="false" uuid="43c54380-406f-4ec2-a83c-992caefbf526">
       <association-field from="contact_card_id" to="id"/>
     </association>
@@ -65,47 +63,39 @@
     <region namespace="\AppBundle\Entity" caption="User Login" description="&#10;&#10;    ImageObject:&#10;        parent: false&#10;        properties:&#10;            caption: ~&#10;            exif: { range: text }&#10;            thumbnail: ~&#10;&#10;&#10;    OpeningHoursSpecification:&#10;        parent: false&#10;        properties:&#10;            closes: ~&#10;            dayOfWeek: ~&#10;            opens: ~&#10;            validFrom: ~&#10;            validThrough: ~&#10;&#10;&#10;&#10;&#10;  " uuid="f1d2d600-3455-4147-8311-e055d78fbc92"/>
     <region namespace="\AppBundle\Entity" caption="Geography" uuid="9646be2b-c395-45a8-8198-1537be8ca385">
       <entity name="\AppBundle\Entity\Country" local-name="Country" namespace="\AppBundle\Entity" uuid="5fcfc80a-dd91-4bf8-9f2b-29def096d5f4">
-        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="951355fe-ab57-45b9-9665-728a67904de4"/>
+        <field name="id" type="integer" primary="true" uuid="eedea723-5c13-4217-9e09-abc2df914f6d"/>
         <field name="code" type="string" size="3" unique="true" uuid="8c8fbabf-1c6d-4be7-a27e-9df2c336589c"/>
         <field name="telephoneCallingCode" type="string" size="4" unique="true" uuid="ba218515-ece1-4964-8039-fac2164c5c6e"/>
-        <field name="countryName" type="string" uuid="4dfcffd5-238a-490d-8ac8-9d45a99d3aaf"/>
-        <field name="mapUrl" type="string" uuid="53f517d3-4e7c-408c-923c-0db6789ab7c0"/>
-        <field name="geoNamesId" type="string" uuid="e56847fc-f35f-450a-8293-f3a330443451"/>
+        <inheritance-child derived-from="\AppBundle\Entity\Place" discriminator-value="country" caption="Country" uuid="57dce748-dab3-4187-9fe0-420559e0dfc4"/>
       </entity>
       <entity name="\AppBundle\Entity\State" local-name="State" namespace="\AppBundle\Entity" uuid="ff669734-9272-47d4-bc34-2d3bec9007c9">
-        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="f7a80a49-7363-48ff-95e3-35db99b32953"/>
-        <field name="country_id" type="integer" required="true" uuid="df686957-5a5a-4a01-bc5e-ad28a6f35063"/>
+        <field name="id" type="integer" primary="true" uuid="8142ee95-a99a-4b7b-bbac-33c4ad90b283"/>
+        <field name="country_id" type="integer" uuid="df686957-5a5a-4a01-bc5e-ad28a6f35063"/>
         <field name="code" type="string" size="3" required="true" uuid="4569e598-1a3b-47ee-b179-a39fcf519400"/>
-        <field name="stateName" type="string" uuid="f6eeb90f-51ad-4920-bb0b-cc903d4da71a"/>
         <field name="description" type="text" uuid="1e17c4b0-e8be-4182-a108-736fd784068b"/>
-        <field name="websiteUrl" type="string" uuid="8f339065-2009-456e-a2d2-a62987b08016"/>
-        <field name="mapUrl" type="string" uuid="eb4eedfe-f290-48c6-894d-b1ecdb5e9ad5"/>
-        <field name="geoNamesId" type="string" uuid="41cf386d-75bf-4c16-9acf-20d23650a2c7"/>
+        <field name="websiteUrl" type="string" size="255" uuid="29bd61ba-3225-417b-b360-1eca63b5c052"/>
+        <inheritance-child derived-from="\AppBundle\Entity\Place" discriminator-value="state" caption="State" uuid="969b5297-469b-401d-8eb6-60a812a8ab30"/>
       </entity>
       <entity name="\AppBundle\Entity\ActivityRegion" local-name="ActivityRegion" namespace="\AppBundle\Entity" uuid="85ac9058-c7f6-41de-aaa4-0a950fbf07b8">
         <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="78cd898a-4e83-496b-b3c6-0f0b995bcb32"/>
-        <field name="state_id" type="integer" required="true" uuid="fcb208dd-1e13-4fbe-bee0-ce6004f9855e"/>
+        <field name="state_id" type="integer" uuid="fcb208dd-1e13-4fbe-bee0-ce6004f9855e"/>
+        <field name="regionLabel" type="string" size="255" uuid="2104259e-c166-4d94-b1c3-d7af4043d200"/>
       </entity>
       <entity name="\AppBundle\Entity\City" local-name="City" namespace="\AppBundle\Entity" uuid="6562e86f-9d0e-4489-a414-56c872ecd190">
-        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="2dfb1959-6a5f-4a21-8641-3aebd5ca41fc"/>
+        <field name="id" type="integer" primary="true" uuid="95728ef6-b619-4a9c-bc9a-276aff48bfd8"/>
         <field name="activity_region_id" type="integer" required="true" uuid="5f920a84-ba71-4efd-bd0c-a670c0465796"/>
         <field name="cityName" type="string" uuid="1222c83c-4041-4941-82d1-ed0a2da7c9f9"/>
         <field name="websiteUrl" type="string" uuid="af90a2d1-b957-4f41-98e6-3e1df3536d2b"/>
-        <field name="mapUrl" type="string" uuid="d893fb8c-7e3f-406a-a00c-aa3ccf42156f"/>
-        <field name="geoNamesId" type="string" uuid="631a2677-8527-42c6-93c9-4376d912aeda"/>
-        <field name="county_id" type="integer" required="true" uuid="01d5cd78-2bcb-4c74-8e6b-17ddb854f3ec"/>
+        <field name="county_id" type="integer" uuid="01d5cd78-2bcb-4c74-8e6b-17ddb854f3ec"/>
+        <inheritance-child derived-from="\AppBundle\Entity\Place" discriminator-value="city" caption="city" uuid="8dae1643-db0f-410d-8491-009f42846d5b"/>
       </entity>
       <entity name="\AppBundle\Entity\County" local-name="County" namespace="\AppBundle\Entity" uuid="c6831229-a937-49da-a961-9ddce68c1c42">
-        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="89c62803-e833-4c62-99bb-a02251dbeea4"/>
+        <field name="id" type="integer" primary="true" uuid="1c77c4b4-38b8-4cea-a53d-fffe286cbb94"/>
         <field name="countyName" type="string" uuid="8fac1fee-ed54-4c88-9343-ba4d68ed51f1"/>
         <field name="description" type="string" uuid="22c288e2-28a0-4b8d-8e4e-51e28949c29b"/>
-        <field name="mapUrl" type="string" uuid="02a8649d-b907-49c7-a069-c66f6779ec8f"/>
-        <field name="geoNamesId" type="string" uuid="d53e15a7-344b-407b-90f8-41040f59aa6f"/>
-        <field name="state_id" type="integer" required="true" uuid="3b1f52e7-47ff-4caf-95e3-98b10b0199e2"/>
-      </entity>
-      <entity name="\AppBundle\Entity\County2ActivityRegion" local-name="County2ActivityRegion" namespace="\AppBundle\Entity" uuid="111e4155-4e6b-49d2-8e7e-917c2358b711">
-        <field name="county_id" type="integer" required="true" primary="true" uuid="f1d13631-f768-4de7-ac12-b88fc4ccc2f8"/>
-        <field name="activity_region_id" type="integer" required="true" primary="true" uuid="2ee77565-412f-42d1-85b4-19392cb66b36"/>
+        <field name="state_id" type="integer" uuid="3b1f52e7-47ff-4caf-95e3-98b10b0199e2"/>
+        <inheritance-parent uuid="29e93e13-4da9-4dc5-b342-b42547849811"/>
+        <inheritance-child derived-from="\AppBundle\Entity\Place" discriminator-value="county" caption="countyplace " uuid="2b60ffe7-67ad-4e8a-9bb5-4900aee6422a"/>
       </entity>
       <entity name="\AppBundle\Entity\PostalCode" local-name="PostalCode" namespace="\AppBundle\Entity" uuid="a9a007b6-cf4f-4c31-843d-a59df023dc2d">
         <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="61dd2be4-e3f1-4488-ae90-feaa1473a396"/>
@@ -125,43 +115,32 @@
         <field name="activity_region_id" type="integer" uuid="bee754da-0ec2-4c98-9cb4-00c16dcba22a"/>
       </entity>
     </region>
-    <association from="\AppBundle\Entity\State" to="\AppBundle\Entity\Country" caption="Country State" owner-alias="states" inverse-alias="country" many-owner="true" many-inverse="false" parent-required="true" uuid="5f00863f-6b20-472e-98b9-d109b8c402e4">
+    <association from="\AppBundle\Entity\State" to="\AppBundle\Entity\Country" caption="Country State" owner-alias="states" inverse-alias="country" many-owner="true" many-inverse="false" uuid="afabfcb5-f9e4-4b64-a87a-c876d0821b20">
       <association-field from="country_id" to="id"/>
     </association>
-    <association from="\AppBundle\Entity\ActivityRegion" to="\AppBundle\Entity\State" caption="State ActivityRegion" owner-alias="activityRegion" inverse-alias="state" many-owner="true" many-inverse="false" parent-required="true" uuid="4b458343-8c9d-45a8-8fd1-9ba231152668">
+    <association from="\AppBundle\Entity\ActivityRegion" to="\AppBundle\Entity\State" caption="State ActivityRegion" owner-alias="activityRegions" inverse-alias="state" many-owner="true" many-inverse="false" uuid="dd100b88-6ca7-4096-a0b1-b1bbc5b1a7c1">
       <association-field from="state_id" to="id"/>
     </association>
     <association from="\AppBundle\Entity\City" to="\AppBundle\Entity\ActivityRegion" caption="ActivityRegion City" owner-alias="regionCities" inverse-alias="activityRegion" many-owner="true" many-inverse="false" parent-required="true" uuid="424c8ae3-d61e-446c-83a0-3f78e2d0b691">
       <association-field from="activity_region_id" to="id"/>
     </association>
-    <association from="\AppBundle\Entity\City" to="\AppBundle\Entity\County" caption="County City" owner-alias="cities" inverse-alias="county" many-owner="true" many-inverse="false" parent-required="true" uuid="3c2f9f46-0424-4b89-90dc-afa5f06b15ec">
+    <association from="\AppBundle\Entity\City" to="\AppBundle\Entity\County" caption="County City" owner-alias="cities" inverse-alias="county" many-owner="true" many-inverse="false" uuid="eb89a747-7110-4918-944b-a55f5fa66f51">
       <association-field from="county_id" to="id"/>
     </association>
-    <association from="\AppBundle\Entity\County" to="\AppBundle\Entity\State" caption="State County" owner-alias="counties" inverse-alias="state" many-owner="true" many-inverse="false" parent-required="true" uuid="57ad6c20-4601-4ce3-9f51-249a37c92bf4">
+    <association from="\AppBundle\Entity\County" to="\AppBundle\Entity\State" caption="State County" owner-alias="counties" inverse-alias="state" many-owner="true" many-inverse="false" uuid="7cf37bf3-0926-48d9-b941-debe2aba4f4f">
       <association-field from="state_id" to="id"/>
-    </association>
-    <many-to-many mn-entity="\AppBundle\Entity\County2ActivityRegion" caption="County to ActivityRegion" uuid="00fbf593-277f-46c1-b06e-63f910397069">
-      <many-to-many-entity name="\AppBundle\Entity\ActivityRegion" owning-side="true" alias="activityRegions" uuid="2ccf13f0-3ed7-46e2-bafc-17405caee037">
-        <many-to-many-field from="activity_region_id" to="id"/>
-      </many-to-many-entity>
-      <many-to-many-entity name="\AppBundle\Entity\County" owning-side="false" alias="counties" uuid="a3104d65-306a-4e8a-9e49-61c5f8562d8b">
-        <many-to-many-field from="county_id" to="id"/>
-      </many-to-many-entity>
-    </many-to-many>
-    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\Country" caption="Country PostalCode" owner-alias="postalCodes" inverse-alias="country" many-owner="true" many-inverse="false" uuid="2b9a37eb-b787-480c-84da-c34bf708286b">
-      <association-field from="country_id" to="id"/>
-    </association>
-    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\State" caption="State PostalCode" owner-alias="postalCodes" inverse-alias="state" many-owner="true" many-inverse="false" uuid="28c4d06e-3289-4de7-9674-66e14a93425d">
-      <association-field from="state_id" to="id"/>
-    </association>
-    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\County" caption="County PostalCode" owner-alias="postalCodes" inverse-alias="county" many-owner="true" many-inverse="false" uuid="18425ebf-5636-44be-81a9-8dff56285c86">
-      <association-field from="county_id" to="id"/>
-    </association>
-    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\City" caption="City PostalCode" owner-alias="postalCodes" inverse-alias="city" many-owner="true" many-inverse="false" uuid="e7fd951e-67fb-4889-b0e7-c0e4c7960d07">
-      <association-field from="city_id" to="id"/>
     </association>
     <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\ActivityRegion" caption="ActivityRegion PostalCode" owner-alias="postalCodes" inverse-alias="activityRegion" many-owner="true" many-inverse="false" uuid="fafc5d32-d051-4986-9d7a-cce5087b9169">
       <association-field from="activity_region_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\Country" caption="Country PostalCode" owner-alias="postalCodes" inverse-alias="country" many-owner="true" many-inverse="false" uuid="39e1e87f-150c-4dbe-9341-c65ce4f52e98">
+      <association-field from="country_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\City" caption="City PostalCode" owner-alias="postalCodes" inverse-alias="city" many-owner="true" many-inverse="false" uuid="665dfb17-eb51-4677-869f-9aa82f3309ce">
+      <association-field from="city_id" to="id"/>
+    </association>
+    <association from="\AppBundle\Entity\PostalCode" to="\AppBundle\Entity\State" caption="State PostalCode" owner-alias="postalCodes" inverse-alias="state" many-owner="true" many-inverse="false" uuid="ab16cf01-2071-486b-bd11-a738bc158ad2">
+      <association-field from="state_id" to="id"/>
     </association>
     <region namespace="\AppBundle\Entity" caption="Abstract Classes" uuid="2bb5530c-263c-4174-8745-2d0a228ae70f">
       <entity name="\AppBundle\Entity\Person" local-name="Person" namespace="\AppBundle\Entity" description=" &#10;            address: { range: PostalAddress }&#10;            email: ~&#10;" uuid="4459b0b1-c8d2-4a5a-8859-0bb243627eda">
@@ -171,6 +150,14 @@
         <field name="gender" type="string" size="10" uuid="258dcfe0-0ecc-4313-b815-271fb5c087e7"/>
         <field name="birthDate" type="date" uuid="b24a11a8-e01f-4fb2-aa57-ac954b7723c5"/>
         <field name="emailAddress" type="string" uuid="df572adb-6b29-4f04-b482-62d76d1c8808"/>
+      </entity>
+      <entity name="\AppBundle\Entity\Place" local-name="Place" namespace="\AppBundle\Entity" uuid="f8f029c8-af81-4010-8507-87f1960fe9f9">
+        <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="4d6f934e-8e3e-43d0-b8aa-542add3669c6"/>
+        <field name="name" type="string" size="255" uuid="e5da1c22-051d-4811-ae18-aadb91a644e0"/>
+        <field name="placeDiscriminator" type="string" size="255" uuid="2bcf06aa-387c-4948-96f0-30dd99a47270"/>
+        <field name="mapUrl" type="string" size="255" uuid="0d6b76c8-8ea7-4e92-aa7b-b97ea1984750"/>
+        <field name="geoNamesId" type="string" size="255" uuid="71925a63-e6bb-48aa-8fbf-9c790c6b14c8"/>
+        <inheritance-parent discriminator-field="placeDiscriminator" type="JOINED" discriminator-value-base="place" uuid="0a8c89cb-d529-42de-a44c-c5a23bd0b9dd"/>
       </entity>
     </region>
     <region namespace="\AppBundle\Entity" caption="HoursOfOpperation" uuid="e7577bfa-ca0a-4cd1-80b1-8a8072041f07">
@@ -189,38 +176,38 @@
     </orm-attributes>
   </module>
   <visual-data>
-    <association uuid="18425ebf-5636-44be-81a9-8dff56285c86" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
     <association uuid="267f2192-2e28-4c23-9475-91664197d04f" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
-    <association uuid="28c4d06e-3289-4de7-9674-66e14a93425d" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
-    <association uuid="2b9a37eb-b787-480c-84da-c34bf708286b" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
-    <association uuid="3c2f9f46-0424-4b89-90dc-afa5f06b15ec" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
-    <association uuid="424c8ae3-d61e-446c-83a0-3f78e2d0b691" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="39e1e87f-150c-4dbe-9341-c65ce4f52e98" color="#969696"/>
+    <association uuid="424c8ae3-d61e-446c-83a0-3f78e2d0b691" caption1-position-x="35" caption1-position-y="-21" caption2-position-x="0" caption2-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
     <association uuid="43c54380-406f-4ec2-a83c-992caefbf526" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
-    <association uuid="4b458343-8c9d-45a8-8fd1-9ba231152668" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
-    <association uuid="57ad6c20-4601-4ce3-9f51-249a37c92bf4" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
-    <association uuid="5f00863f-6b20-472e-98b9-d109b8c402e4" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
-    <association uuid="910b5bc5-c6cc-4be8-812a-b4179acffb63" caption1-position-x="0" caption1-position-y="0" caption2-position-x="57" caption2-position-y="-12" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
-    <association uuid="e7fd951e-67fb-4889-b0e7-c0e4c7960d07" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696"/>
+    <association uuid="665dfb17-eb51-4677-869f-9aa82f3309ce" color="#969696"/>
+    <association uuid="7cf37bf3-0926-48d9-b941-debe2aba4f4f" color="#969696"/>
+    <association uuid="910b5bc5-c6cc-4be8-812a-b4179acffb63" caption1-position-x="0" caption1-position-y="0" caption2-position-x="33" caption2-position-y="-12" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <association uuid="ab16cf01-2071-486b-bd11-a738bc158ad2" color="#969696"/>
+    <association uuid="afabfcb5-f9e4-4b64-a87a-c876d0821b20" color="#969696"/>
+    <association uuid="dd100b88-6ca7-4096-a0b1-b1bbc5b1a7c1" color="#969696"/>
+    <association uuid="eb89a747-7110-4918-944b-a55f5fa66f51" color="#969696"/>
     <association uuid="fafc5d32-d051-4986-9d7a-cce5087b9169" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
-    <entity uuid="111e4155-4e6b-49d2-8e7e-917c2358b711" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="509" position-y="788" size-x="0" size-x2="140" size-y="0" size-y2="60"/>
     <entity uuid="243e9193-ebd1-4a1c-9391-6ef577c2fbc3" bg-color="#FFFFFF" hdr-color="#D2D2D2"/>
     <entity uuid="4459b0b1-c8d2-4a5a-8859-0bb243627eda" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-46" position-y="34" size-x="0" size-x2="130" size-y="0" size-y2="101"/>
-    <entity uuid="5fcfc80a-dd91-4bf8-9f2b-29def096d5f4" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-69" position-y="69" size-x="0" size-x2="158" size-y="0" size-y2="101"/>
+    <entity uuid="5fcfc80a-dd91-4bf8-9f2b-29def096d5f4" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-35" position-y="109" size-x="0" size-x2="158" size-y="0" size-y2="59"/>
     <entity uuid="6562e86f-9d0e-4489-a414-56c872ecd190" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-31" position-y="759" size-x="0" size-x2="136" size-y="0" size-y2="115"/>
     <entity uuid="77cc3fed-52fc-479e-a98f-2e51b2ebf697" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="191" position-y="21" size-x="0" size-x2="130" size-y="0" size-y2="101"/>
     <entity uuid="7ef322bf-3ff1-4857-9e87-42f083be63ad" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="480" position-y="21" size-x="0" size-x2="136" size-y="0" size-y2="115"/>
-    <entity uuid="85ac9058-c7f6-41de-aaa4-0a950fbf07b8" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="487" position-y="54" size-x="0" size-x2="95" size-y="0" size-y2="45"/>
+    <entity uuid="85ac9058-c7f6-41de-aaa4-0a950fbf07b8" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="489" position-y="52" size-x="0" size-x2="125" size-y="0" size-y2="59"/>
     <entity uuid="9cc48192-f244-4552-a648-fc3e3c906ec8" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="315" position-y="244" size-x="0" size-x2="113" size-y="0" size-y2="73"/>
     <entity uuid="a4d157d7-87b8-4c29-afde-2363431b51ea" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="39" position-y="54" size-x="0" size-x2="160" size-y="0" size-y2="60"/>
-    <entity uuid="a9a007b6-cf4f-4c31-843d-a59df023dc2d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-61" position-y="400" size-x="0" size-x2="179" size-y="0" size-y2="227"/>
-    <entity uuid="c6831229-a937-49da-a961-9ddce68c1c42" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="238" position-y="768" size-x="0" size-x2="111" size-y="0" size-y2="101"/>
+    <entity uuid="a9a007b6-cf4f-4c31-843d-a59df023dc2d" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="-24" position-y="361" size-x="0" size-x2="179" size-y="0" size-y2="227"/>
+    <entity uuid="c6831229-a937-49da-a961-9ddce68c1c42" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="327" position-y="772" size-x="0" size-x2="111" size-y="0" size-y2="73"/>
+    <entity uuid="f8f029c8-af81-4010-8507-87f1960fe9f9" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="184" position-y="45" size-x="0" size-x2="155" size-y="0" size-y2="87"/>
     <entity uuid="fbcd13f0-6611-4639-a804-0d3d9f60bbbb" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="13" position-y="219" size-x="0" size-x2="165" size-y="0" size-y2="60"/>
-    <entity uuid="ff669734-9272-47d4-bc34-2d3bec9007c9" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="256" position-y="202" size-x="0" size-x2="110" size-y="0" size-y2="129"/>
-    <many-to-many-association uuid="00fbf593-277f-46c1-b06e-63f910397069" color="#969696"/>
+    <entity uuid="ff669734-9272-47d4-bc34-2d3bec9007c9" bg-color="#FFFFFF" hdr-color="#D2D2D2" position-x="336" position-y="249" size-x="0" size-x2="121" size-y="0" size-y2="73"/>
+    <inheritance-child uuid="2b60ffe7-67ad-4e8a-9bb5-4900aee6422a" caption1-position-x="0" caption1-position-y="0" caption2-position-x="-2" caption2-position-y="-22" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <inheritance-child uuid="57dce748-dab3-4187-9fe0-420559e0dfc4" caption1-position-x="0" caption1-position-y="0" caption2-position-x="-2" caption2-position-y="-12" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <inheritance-child uuid="8dae1643-db0f-410d-8491-009f42846d5b" caption1-position-x="0" caption1-position-y="0" caption2-position-x="0" caption2-position-y="-11" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
+    <inheritance-child uuid="969b5297-469b-401d-8eb6-60a812a8ab30" caption1-position-x="0" caption1-position-y="0" caption2-position-x="2" caption2-position-y="-14" center-position-x="0" center-position-y="0" color="#969696" split="1"/>
     <many-to-many-association uuid="01905372-37ab-431f-ad0f-972484a41787" color="#969696"/>
     <many-to-many-association uuid="9200ba31-3720-4003-8b6c-39ca67069001" color="#969696"/>
-    <many-to-many-association-entity uuid="2ccf13f0-3ed7-46e2-bafc-17405caee037" split="1"/>
-    <many-to-many-association-entity uuid="a3104d65-306a-4e8a-9e49-61c5f8562d8b" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0"/>
     <module uuid="296d8782-ae52-450d-af40-d8ed769e2d73" bg-color="#FFFFFF" position-x="11" position-y="24" size-x="45" size-x2="1514" size-y="34" size-y2="1504"/>
     <project uuid="3afde50a-8ccb-48b9-82ea-b83c2c48b73d" size-x="84" size-x2="1572" size-y="60" size-y2="1578"/>
     <region uuid="2bb5530c-263c-4174-8745-2d0a228ae70f" bg-color="#EAE4F1" position-x="77" position-y="19" size-x="66" size-x2="354" size-y="10" size-y2="178"/>

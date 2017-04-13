@@ -1,0 +1,46 @@
+<?php
+namespace AppBundle\Entity;
+use Doctrine\ORM\Mapping AS ORM;
+
+/**
+ * @ORM\Entity
+ */
+class State
+{
+    /**
+     * @ORM\Column(type="string", length=3, nullable=false)
+     */
+    private $code;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $websiteUrl;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ActivityRegion", mappedBy="state")
+     */
+    private $activityRegions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\County", mappedBy="state")
+     */
+    private $counties;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PostalCode", mappedBy="state")
+     */
+    private $postalCodes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Country", inversedBy="states")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     * 
+     */
+    private $country;
+}
