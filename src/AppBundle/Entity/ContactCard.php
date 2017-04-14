@@ -4,7 +4,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
- * @ApiResource()
  * @ORM\Entity
  */
 class ContactCard
@@ -60,6 +59,7 @@ class ContactCard
      * )
      */
     private $operationHours;
+
     /**
      * Constructor
      */

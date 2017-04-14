@@ -6,7 +6,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
- * @ApiResource()
  * @ORM\Entity
  */
 class State

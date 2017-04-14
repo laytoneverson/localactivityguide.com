@@ -1,0 +1,156 @@
+# Resource definitions
+
+#
+#AppBundle\Entity\ActivityRegion:
+#    collectionOperations:
+#        get:
+#            method: 'GET' 
+#        post:
+#            method: 'POST'
+#    itemOperations:
+#        get:
+#            method: 'GET'
+#        put:
+#            method: 'PUT'
+#        delete:
+#            method: 'DELETE'
+#            path: '/grimoire/{id}/update'
+#            hydra_context: { foo: 'bar' }
+#
+
+AppBundle\Entity\ActivityRegion:
+    iri: "http://schema.org/Place"
+    collectionOperations:
+        get:
+            method: 'GET' 
+        post:
+            method: 'POST'
+    itemOperations:
+        get:
+            method: 'GET'
+        put:
+            method: 'PUT'
+
+AppBundle\Entity\City:
+    iri: "http://schema.org/City"
+    collectionOperations:
+        get:
+            method: 'GET' 
+        post:
+            method: 'POST'
+    itemOperations:
+        get:
+            method: 'GET'
+
+AppBundle\Entity\ContactCard:
+    iri: "http://schema.org/ContactPoint"
+    collectionOperations:
+        get:
+            method: 'GET' 
+        post:
+            method: 'POST'
+    itemOperations:
+        get:
+            method: 'GET'
+        put:
+            method: 'PUT'
+        delete:
+            method: 'DELETE'
+
+AppBundle\Entity\Country:
+    iri: "http://schema.org/Country"
+    collectionOperations:
+        get:
+            method: 'GET' 
+        post:
+            method: 'POST'
+    itemOperations:
+        get:
+            method: 'GET'
+
+AppBundle\Entity\County:
+    iri: "http://schema.org/County"
+    collectionOperations:
+        get:
+            method: 'GET' 
+        post:
+            method: 'POST'
+    itemOperations:
+        get:
+            method: 'GET'
+
+AppBundle\Entity\OperationHours:
+    iri: "http://schema.org/OpeningHoursSpecification"
+    collectionOperations:
+        get:
+            method: 'GET' 
+        post:
+            method: 'POST'
+    itemOperations:
+        get:
+            method: 'GET'
+        put:
+            method: 'PUT'
+        delete:
+            method: 'DELETE'
+
+AppBundle\Entity\Place:
+    iri: "http://schema.org/Place"
+    collectionOperations:
+        get:
+            method: 'GET' 
+    itemOperations:
+        get:
+            method: 'GET'
+
+AppBundle\Entity\PostalAddress:
+    iri: "http://schema.org/PostalAddress"
+    collectionOperations:
+        get:
+            method: 'GET'
+        post:
+            method: 'POST'
+    itemOperations:
+        get:
+            method: 'GET'
+        put:
+            method: 'PUT'
+        delete:
+            method: 'DELETE'
+
+AppBundle\Entity\PostalCode:
+    iri: "http://schema.org/PostalCode"
+    collectionOperations:
+        get:
+            method: 'GET'
+        post:
+            method: 'POST'
+    itemOperations:
+        get:
+            method: 'GET'
+        delete:
+            method: 'DELETE'
+
+AppBundle\Entity\State:
+    iri: "http://schema.org/State"
+    collectionOperations:
+        get:
+            method: 'GET'
+        post:
+            method: 'POST'
+    itemOperations:
+        get:
+            method: 'GET'
+
+AppBundle\Entity\TelephoneNumber:
+    iri: "http://schema.org/TelephoneNumber"
+    collectionOperations:
+        get:
+            method: 'GET'
+        post:
+            method: 'POST'
+    itemOperations:
+        get:
+            method: 'GET'
+        delete:
+            method: 'DELETE'

@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping AS ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
- * @ApiResource()
- *
  * @ORM\Entity
  */
 class TelephoneNumber
@@ -28,11 +26,6 @@ class TelephoneNumber
      * @ORM\Column(type="string", nullable=true)
      */
     private $phoneNumberType;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $country_id;
 
     /**
      * @ORM\Column(type="string", length=4, nullable=true)
@@ -112,30 +105,6 @@ class TelephoneNumber
     public function getPhoneNumberType()
     {
         return $this->phoneNumberType;
-    }
-
-    /**
-     * Set countryId
-     *
-     * @param integer $countryId
-     *
-     * @return TelephoneNumber
-     */
-    public function setCountryId($countryId)
-    {
-        $this->country_id = $countryId;
-
-        return $this;
-    }
-
-    /**
-     * Get countryId
-     *
-     * @return integer
-     */
-    public function getCountryId()
-    {
-        return $this->country_id;
     }
 
     /**
